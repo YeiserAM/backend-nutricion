@@ -1,0 +1,36 @@
+{
+  "name": "yeiser",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app",
+    "start:dev": "nodemon app"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.17.1",
+    "gitignore": "^0.7.0",
+    "helmet": "^4.6.0",
+    "howler": "^2.2.3",
+    "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^3.1.2",
+    "morgan": "^1.10.0",
+    "nodemailer": "^6.7.0",
+    "pg": "^8.7.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.14.3",
+    "@babel/core": "^7.15.8",
+    "@babel/node": "^7.15.8",
+    "@babel/plugin-transform-runtime": "^7.19.6",
+    "@babel/preset-env": "^7.14.2",
+    "gh-pages": "^3.2.3",
+    "nodemon": "^2.0.14"
+  }
+}
