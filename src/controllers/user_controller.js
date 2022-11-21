@@ -106,7 +106,7 @@ userCtr.createUser = async(req, res)=>{
       const password2 = await helpers.encryptPassword(password);
       await pool.query('insert into usuario(usuario, password, id_rol) values($1,$2,$3)', [usuario, password2, id_rol]);
       return res.status(200).json(
-          `Usuario ${ username } creado correctamente...!`);
+          `Usuario ${ usuario } creado correctamente...!`);
   } catch (e) {
       console.log(e);
       return res.status(500).json('Internal Server error...!');
