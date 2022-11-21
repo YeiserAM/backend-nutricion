@@ -1,7 +1,12 @@
 const pool = require("../data_base");
 
-const jwt = require('jsonwebtoken');
-const bcrytp = require('bcryptjs');
+const jwt = require("jsonwebtoken");
+const bcrytp = require("bcryptjs");
+
+const secret = "nutricion-upeu-HMDA-access-token";
+const refreshTokenSecret = "nutricion-upeu-HMDA-refresh-access-token";
+
+const refreshTokens = []
 
 const userCtr = {};
 
@@ -33,16 +38,42 @@ userCtr.singin = async (req, res) => {
     );
 
     if (response.rows.length != 0) {
+
       const password2 = response.rows[0].password;
-      console.log(password2)
+
+      if (await bcrytp.compare(password, password2)) {
+
+        const usuario = {
+          id_usuario: response.rows[0].idusuario,
+          usuario: response.rows[0].username,
+          id_rol: response.rows[0].idrol
+        };
+
+        const accessToken = jwt.sign({ usuario }, secret, {
+          expiresIn: "7200s"
+        });
+
+        const refreshToken = jwt.sign({ usuario }, refreshTokenSecret);
+
+        refreshTokens.push(refreshToken);
+
+        return res.status(200).json({
+          statusw: true,
+          resp: "Ok",
+          message: "Se inicio",
+          data: response.rows,
+          token: accessToken,
+          refreshToken: refreshTokens
+        });
+      }
     }
 
-    return  res.status(200).json({
+    return res.status(200).json({
       statusw: true,
-      resp: 'Ok',
-      message: 'Se inicio',
+      resp: "Ok",
+      message: "Se inicio",
       data: response.rows
-    })
+    });
   } catch (error) {
     return res.status(400).json({
       status: false,
@@ -52,21 +83,21 @@ userCtr.singin = async (req, res) => {
   }
 };
 
-userCtr.autentication = verifyToken, (req,res) => {
-  res.json('Informacion secreta');
-}
+(userCtr.autentication = verifyToken), (req, res) => {
+  res.json("Informacion secreta");
+};
 
-function verifyToken(req,res, next){
-  if(!req.headers.authorization) return res.status(401).json('No autorizado');
+function verifyToken(req, res, next) {
+  if (!req.headers.authorization) return res.status(401).json("No autorizado");
 
   const token = req.headers.authorization.substr(7);
-  if(token!==''){
-      const content = jwt.verify(token,'stil');
-      req.data = content;
-      next();
-    }else{
-      res.status(401).json('Token vacio');
-    }
-}  
+  if (token !== "") {
+    const content = jwt.verify(token, "stil");
+    req.data = content;
+    next();
+  } else {
+    res.status(401).json("Token vacio");
+  }
+}
 
 module.exports = userCtr;
