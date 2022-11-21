@@ -18,7 +18,9 @@ app.get('/', function(req, res, next) {
 
 app.use('/api/users', usersRoutes);
 
-app.listen(process.env.PORT || 4000, () =>
+
+
+app.listen(process.env.PORT || 3000, () =>
   console.log(`Server running on port ${process.env.PORT}`)
 );
 
