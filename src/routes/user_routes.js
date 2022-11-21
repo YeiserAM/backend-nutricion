@@ -9,6 +9,6 @@ router.post('/login', authCtr.singin);
 
 router.post('/test', authCtr.autentication);
 
-
+router.post('/create-users', authCtr.createUser);
 
 module.exports =  router;

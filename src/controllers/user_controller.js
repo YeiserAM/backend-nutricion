@@ -2,6 +2,7 @@ const pool = require("../data_base");
 
 const jwt = require("jsonwebtoken");
 const bcrytp = require("bcryptjs");
+const helpers = require('../libs/helpers');
 
 const secret = "nutricion-upeu-HMDA-access-token";
 const refreshTokenSecret = "nutricion-upeu-HMDA-refresh-access-token";
@@ -44,7 +45,6 @@ userCtr.singin = async (req, res) => {
       if (await bcrytp.compare(password, password2)) {
 
         const usuario = {
-          id_usuario: response.rows[0].idusuario,
           usuario: response.rows[0].username,
           id_rol: response.rows[0].idrol
         };
@@ -82,6 +82,21 @@ userCtr.singin = async (req, res) => {
     });
   }
 };
+
+userCtr.createUser = async(req, res)=>{
+
+  try {
+      const{ usuario, password, id_rol } = req.body;
+      const password2 = await helpers.encryptPassword(password);
+      await pool.query('insert into usuario(usuario, password, id_rol) values($1,$2,$3)', [usuario, password2, id_rol]);
+      return res.status(200).json(
+          `Usuario ${ username } creado correctamente...!`);
+  } catch (e) {
+      console.log(e);
+      return res.status(500).json('Internal Server error...!');
+  }
+
+}
 
 (userCtr.autentication = verifyToken), (req, res) => {
   res.json("Informacion secreta");
