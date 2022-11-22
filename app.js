@@ -3,6 +3,7 @@ const morgan = require('morgan')
 
 const usersRoutes = require('./src/routes/user_routes')
 const personaRoutes = require('./src/routes/persona_routes')
+const estudianteRoutes = require('./src/routes/estudiante_routes')
 
 require("dotenv").config();
 const app = express();
@@ -19,6 +20,7 @@ app.get('/', function(req, res, next) {
 
 app.use('/api/users', usersRoutes);
 app.use('/api/persona', personaRoutes);
+app.use('/api/estudiante', estudianteRoutes);
 
 
 
