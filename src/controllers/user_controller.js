@@ -61,7 +61,7 @@ userCtr.singin = async (req, res) => {
           statusw: true,
           resp: "Ok",
           message: "Se inicio",
-          data: response.rows,
+          data: response.rows[0],
           token: accessToken,
           refreshToken: refreshTokens
         });
