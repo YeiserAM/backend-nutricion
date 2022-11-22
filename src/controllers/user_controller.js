@@ -110,7 +110,7 @@ userCtr.createUser = async(req, res)=>{
           `Usuario ${ usuario } creado correctamente...!`);
   } catch (e) {
       console.log(e);
-      return res.status(500).json('Internal Server error...!');
+      return res.status(500).json(' error...!');
   }
 
 }
