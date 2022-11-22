@@ -61,23 +61,22 @@ userCtr.singin = async (req, res) => {
           statusw: true,
           resp: "Ok",
           message: "Se inicio",
-          data: response.rows,
+          data: response.rows[0],
           token: accessToken,
           refreshToken: refreshTokens
         });
       }
     }
 
-    return res.status(200).json({
-      statusw: true,
-      resp: "Ok",
-      message: "Se inicio",
-      data: response.rows
+    return res.status(400).json({
+      status: false,
+      resp: "Ocurrio un Error",
+      message: "Usuario y contraseña incorrectos",
     });
   } catch (error) {
     return res.status(400).json({
       status: false,
-      resp: "Ok",
+      resp: "Ok", 
       message: error.message
     });
   }
