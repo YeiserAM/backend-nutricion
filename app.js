@@ -21,6 +21,8 @@ app.get('/', function(req, res, next) {
     res.send('Backend Nutricion Funciona Correctamente...!');
 });
 
+
+
 app.use('/api/users', usersRoutes);
 app.use('/api/persona', personaRoutes);
 app.use('/api/estudiante', estudianteRoutes);
