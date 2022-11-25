@@ -46,7 +46,8 @@ userCtr.singin = async (req, res) => {
 
         const usuario = {
           usuario: response.rows[0].username,
-          id_rol: response.rows[0].idrol
+          id_rol: response.rows[0].idrol,
+          idperson : response.rows[0].idperson
         };
 
         const accessToken = jwt.sign({ usuario }, secret, {
