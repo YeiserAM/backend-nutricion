@@ -52,12 +52,15 @@ userCtr.getusuario = async (req, res) => {
 userCtr.singin = async (req, res) => {
   try {
     const { usuario, password } = req.body;
+    
+    const user = await pool.query("select * from usuario where usuario = $1 ", [usuario])
+    //console.log(user.rows[0].id_usuario);
 
     const response = await pool.query(
-      "select * from usuario where usuario = $1",
-      [usuario] 
+      "select u.id_usuario ,u.password ,nombre , concat(apepat,' ',apemat) as Apellidos, Codigo , dni from usuario u inner join persona p on u.idperson = p.idpersona  where id_usuario = $1",
+      [user.rows[0].id_usuario] 
     );
-
+     console.log(response.rows)
     if (response.rows.length != 0) {
 
       const password2 = response.rows[0].password;
