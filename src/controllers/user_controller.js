@@ -35,7 +35,7 @@ userCtr.singin = async (req, res) => {
 
     const response = await pool.query(
       "select * from usuario where usuario = $1",
-      [usuario]
+      [usuario] 
     );
 
     if (response.rows.length != 0) {
@@ -113,6 +113,17 @@ userCtr.createUser = async(req, res)=>{
       return res.status(500).json(' error...!');
   }
 
+}
+
+userCtr.getAcceso = async(req, res)=>{
+  try{
+      const id = parseInt(req.params.id);
+      const resp = await pool.query('select * from accesos where id_rol =$1',[id]);
+      return res.status(200).json(resp.rows);
+  }catch(e){
+      console.log(e);
+      return res.status(500).json('Internal Server error...!');
+  }
 }
 
 module.exports = userCtr;
