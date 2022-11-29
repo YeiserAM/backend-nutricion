@@ -5,6 +5,8 @@ const pool = require('../data_base');
 
 router.get('/', authCtr.getAllUsers);
 
+router.get('/:id', authCtr.getusuario);
+
 router.post('/login', authCtr.singin);
 
 router.post('/test', authCtr.autentication);

@@ -22,7 +22,6 @@ app.get('/', function(req, res, next) {
 });
 
 
-
 app.use('/api/users', usersRoutes);
 app.use('/api/persona', personaRoutes);
 app.use('/api/estudiante', estudianteRoutes);
