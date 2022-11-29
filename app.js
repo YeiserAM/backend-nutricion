@@ -28,16 +28,16 @@ app.use('/api/estudiante', estudianteRoutes);
 app.use('/api/empresa', empresaRoutes);
 //app.use('/api/solicitud', solicitudRoutes);
 
-const port =process.env.PORT || 3000;
+/* const port =process.env.PORT || 3000;
 app.set('port', port);
 
 app.listen(3000, '192.168.0.106' || 'localhost', function(){
   console.log(`Server running on port ${process.env.PORT}`)
 })
-
-/* app.listen(process.env.PORT || 3000, () =>
+ */
+app.listen(process.env.PORT || 3000, () =>
   console.log(`Server running on port ${process.env.PORT}`)
 );
- */
+
 
 module.exports = app;
