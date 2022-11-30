@@ -30,6 +30,25 @@ userCtr.getAllUsers = async (req, res) => {
   }
 };
 
+
+userCtr.getperfil = async (req, res) => {
+  try {
+    const response = await pool.query("select concat(apepat,' ',apemat) as Apellidos , codigo,dni from persona");
+
+    return res.status(200).json({
+      status: true,
+      resp: "Ok",
+      message: "Se obtuvo los usuarios",
+      data: response.rows
+    });
+  } catch (error) {
+    return res.status(400).json({
+      status: true,
+      resp: "Ok",
+      message: error.message
+    });
+  }
+};
 userCtr.getusuario = async (req, res) => {
   try {
     const id = parseInt(req.params.id);
