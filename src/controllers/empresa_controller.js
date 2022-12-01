@@ -17,7 +17,7 @@ empresactr.getAllempresas = async (req, res) => {
       return res.status(400).json({
         status: true,
         resp: "Ok",
-        message: error.message
+        message: error.messages
       });
     }
   };
