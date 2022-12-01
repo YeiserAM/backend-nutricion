@@ -31,30 +31,30 @@ userCtr.getAllUsers = async (req, res) => {
 };
 
 
-userCtr.getperfil = async (req, res) => {
-  try {
-    const response = await pool.query("select * from persona");
-    //const response = await pool.query("select concat(apepat,' ',apemat) as Apellidos , codigo , dni from persona ");
+// userCtr.getperfil = async (req, res) => {
+//   try {
+//     const response = await pool.query("select * from persona");
+//     //const response = await pool.query("select concat(apepat,' ',apemat) as Apellidos , codigo , dni from persona ");
 
-    return res.status(200).json({
-      status: true,
-      resp: "Ok",
-      message: "Se obtuvo los perfiles",
-      data: response.rows
-    });
-  } catch (error) {
-    return res.status(400).json({
-      status: true,
-      resp: "Ok",
-      message: error.message
-    });
-  }
-};
+//     return res.status(200).json({
+//       status: true,
+//       resp: "Ok",
+//       message: "Se obtuvo los perfiles",
+//       data: response.rows
+//     });
+//   } catch (error) {
+//     return res.status(400).json({
+//       status: true,
+//       resp: "Ok",
+//       message: error.message
+//     });
+//   }
+// };
 
 userCtr.getusuario = async (req, res) => {
   try {
     const id = parseInt(req.params.id);
-    const response = await pool.query("select nombre , concat(apepat,' ',apemat) as Apellidos, codigo , dni from usuario u inner join persona p on u.idperson = p.idpersona  where id_usuario = $1", [id]);
+    const response = await pool.query("select id_usuario,nombre , concat(apepat,' ',apemat) as Apellidos, codigo , dni from usuario u inner join persona p on u.idperson = p.idpersona  where id_usuario = $1");
 
     return res.status(200).json({
       status: true,
