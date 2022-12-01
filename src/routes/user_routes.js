@@ -7,7 +7,7 @@ router.get('/', authCtr.getAllUsers);
 
 router.get('/:id', authCtr.getusuario);
 
-router.get('/perfil', authCtr.getperfil);
+// router.get('/perfil', authCtr.getperfil);
 
 router.post('/login', authCtr.singin);
 
