@@ -113,6 +113,8 @@ userCtr.singin = async (req, res) => {
       }
     }
 
+    
+
     return res.status(400).json({
       status: false,
       resp: "Ocurrio un Error",
