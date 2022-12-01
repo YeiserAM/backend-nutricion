@@ -75,13 +75,13 @@ userCtr.singin = async (req, res) => {
   try {
     const { usuario, password } = req.body;
     
-    const user = await pool.query("select * from usuario where usuario = $1 ", [usuario])
+    const user = await pool.query("select * from usuario where usuario = $1 ", [usuario]);
 
     const response = await pool.query(
       "select u.id_usuario ,u.usuario,u.password ,r.id_rol ,r.rol, p.idpersona ,nombre , concat(apepat,' ',apemat) as Apellidos, Codigo , dni from usuario u inner join persona p on u.idperson = p.idpersona inner join rol r on r.id_rol = u.id_rol where id_usuario = $1",
       [user.rows[0].id_usuario] 
     );
-
+    console.log(response.rows)
     const sidebarResponse = await pool.query("select * from sidebar where id_rol = $1", [response.rows[0].id_rol]);
 
     if (response.rows.length != 0) {
@@ -109,7 +109,7 @@ userCtr.singin = async (req, res) => {
           resp: "Ok",
           message: "Se inicio",
           data: response.rows[0],
-          sidebar: sidebarResponse.rows[0],
+          sidebar: sidebarResponse.rows,
           token: accessToken,
           refreshToken: refreshTokens
         });
