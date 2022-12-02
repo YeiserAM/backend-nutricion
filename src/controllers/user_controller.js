@@ -78,7 +78,7 @@ userCtr.singin = async (req, res) => {
     const user = await pool.query("select * from usuario where usuario = $1 ", [usuario]);
 
     const response = await pool.query(
-      "select u.id_usuario ,u.usuario,u.password ,r.id_rol ,r.rol, p.idpersona ,nombre , concat(apepat,' ',apemat) as Apellidos, codigo , dni, e.idestudiante, e.telefono,e.genero, e.religion ,e.nacionalidad ,e.fechanacimiento ,e.ubigeo ,e.estadocivil  , m.nombree , m.ruc , m.direccion , m.nombrerep ,m.cargorep ,m.gradosup ,m.telefono ,m.fechappp , m.areappp from usuario u inner join persona p on u.idperson = p.idpersona inner join rol r on r.id_rol = u.id_rol inner join estudiante e on e.idperso = p.idpersona inner join empresa m  on m.idestudian =e.idestudiante   where id_usuario = $1",
+      "select u.id_usuario ,u.usuario,u.password ,r.id_rol ,r.rol, p.idpersona ,nombre , concat(apepat,' ',apemat) as Apellidos, codigo , dni, e.idestudiante, e.telefono,e.genero, e.religion ,e.nacionalidad ,e.fechanacimiento ,e.ubigeo ,e.estadocivil  , m.idempresa, m.nombree , m.ruc , m.direccion , m.nombrerep ,m.cargorep ,m.gradosup ,m.telefono ,m.fechappp , m.areappp from usuario u inner join persona p on u.idperson = p.idpersona inner join rol r on r.id_rol = u.id_rol inner join estudiante e on e.idperso = p.idpersona inner join empresa m  on m.idestudian =e.idestudiante   where id_usuario = $1",
       [user.rows[0].id_usuario] 
     );
     console.log(response.rows)
