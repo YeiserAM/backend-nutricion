@@ -25,9 +25,9 @@ empresactr.getAllempresas = async (req, res) => {
   empresactr.createempresa = async(req, res)=>{
 
     try {
-        const{ idempresa,nombree, ruc, direccion, nombrerep, cargorep, gradosup, telefono, fechappp,areappp,idestudian } = req.body;
+        const{ nombree, ruc, direccion, nombrerep, cargorep, gradosup, telefono, fechappp,areappp,idestudian } = req.body;
         //const password2 = await helpers.encryptPassword(password);
-        await pool.query('insert into empresa(idempresa,nombree, ruc, direccion, nombrerep, cargorep, gradosup, telefono, fechappp,areappp,idestudian) values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)', [idempresa,nombree, ruc, direccion, nombrerep, cargorep, gradosup, telefono, fechappp,areappp,idestudian]);
+        await pool.query('insert into empresa(nombree, ruc, direccion, nombrerep, cargorep, gradosup, telefono, fechappp,areappp,idestudian) values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)', [nombree, ruc, direccion, nombrerep, cargorep, gradosup, telefono, fechappp,areappp,idestudian]);
         return res.status(200).json(
             ` empresa ${ nombree }  creado correctamente...!`);
     } catch (e) {
