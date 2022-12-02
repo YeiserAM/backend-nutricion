@@ -32,7 +32,7 @@ empresactr.getAllempresas = async (req, res) => {
             ` empresa ${ nombree }  creado correctamente...!`);
     } catch (e) {
         console.log(e);
-        return res.status(500).json(' error...!');
+        return res.status(500).json(' error....!');
     }
   
   }
