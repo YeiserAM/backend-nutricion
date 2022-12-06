@@ -84,7 +84,7 @@ userCtr.singin = async (req, res) => {
         return res.status(200).json({
           statusw: true,
           resp: "Ok",
-          message: "Se inicio",
+          message: "Se inicio Session",
           data: response.rows[0],
           token: accessToken,
           refreshToken: refreshTokens
