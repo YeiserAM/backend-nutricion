@@ -26,6 +26,8 @@ empresactr.getAllempresas = async (req, res) => {
 
     try {
         const{ nombree,  direccion, nombrerep, cargorep, gradosup, telefono, fechappp,areappp,idestudian } = req.body;
+
+        console.log(req.body)
         //const password2 = await helpers.encryptPassword(password);
         await pool.query('insert into empresa(nombree,  direccion, nombrerep, cargorep, gradosup, telefono, fechappp,areappp,idestudian) values($1,$2,$3,$4,$5,$6,$7,$8,$9)', [nombree,  direccion, nombrerep, cargorep, gradosup, telefono, fechappp,areappp,idestudian]);
         return res.status(200).json(
