@@ -26,7 +26,7 @@ app.use('/api/users', usersRoutes);
 app.use('/api/persona', personaRoutes);
 app.use('/api/estudiante', estudianteRoutes);
 app.use('/api/empresa', empresaRoutes);
-//app.use('/api/solicitud', solicitudRoutes);
+app.use('/api/solicitud', solicitudRoutes);
 
 const port =process.env.PORT || 3000;
 app.set('port', port);

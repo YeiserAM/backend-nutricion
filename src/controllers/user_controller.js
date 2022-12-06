@@ -30,10 +30,31 @@ userCtr.getAllUsers = async (req, res) => {
   }
 };
 
+
+// userCtr.getperfil = async (req, res) => {
+//   try {
+//     const response = await pool.query("select * from persona");
+//     //const response = await pool.query("select concat(apepat,' ',apemat) as Apellidos , codigo , dni from persona ");
+
+//     return res.status(200).json({
+//       status: true,
+//       resp: "Ok",
+//       message: "Se obtuvo los perfiles",
+//       data: response.rows
+//     });
+//   } catch (error) {
+//     return res.status(400).json({
+//       status: true,
+//       resp: "Ok",
+//       message: error.message
+//     });
+//   }
+// };
+
 userCtr.getusuario = async (req, res) => {
   try {
     const id = parseInt(req.params.id);
-    const response = await pool.query("select nombre , concat(apepat,' ',apemat) as Apellidos, codigo , dni from usuario u inner join persona p on u.idperson = p.idpersona  where id_usuario = $1", [id]);
+    const response = await pool.query("select id_usuario,nombre , concat(apepat,' ',apemat) as Apellidos, codigo , dni from usuario u inner join persona p on u.idperson = p.idpersona  where id_usuario = $1");
 
     return res.status(200).json({
       status: true,
@@ -49,18 +70,20 @@ userCtr.getusuario = async (req, res) => {
     });
   }
 };
+
 userCtr.singin = async (req, res) => {
   try {
     const { usuario, password } = req.body;
     
-    const user = await pool.query("select * from usuario where usuario = $1 ", [usuario])
-    //console.log(user.rows[0].id_usuario);
+    const user = await pool.query("select * from usuario where usuario = $1 ", [usuario]);
 
     const response = await pool.query(
-      "select u.id_usuario ,u.password ,nombre , concat(apepat,' ',apemat) as Apellidos, Codigo , dni from usuario u inner join persona p on u.idperson = p.idpersona  where id_usuario = $1",
+      "select u.id_usuario ,u.usuario,u.password ,r.id_rol ,r.rol, p.idpersona ,nombre , concat(apepat,' ',apemat) as Apellidos, codigo , dni, e.idestudiante, e.telefono,e.genero, e.religion ,e.nacionalidad ,e.fechanacimiento ,e.ubigeo ,e.estadocivil from usuario u inner join persona p on u.idperson = p.idpersona inner join rol r on r.id_rol = u.id_rol inner join estudiante e on e.idperso = p.idpersona where id_usuario = $1",
       [user.rows[0].id_usuario] 
     );
-     console.log(response.rows)
+    console.log(response.rows)
+    const sidebarResponse = await pool.query("select * from sidebar where id_rol = $1", [response.rows[0].id_rol]);
+
     if (response.rows.length != 0) {
 
       const password2 = response.rows[0].password;
@@ -86,11 +109,14 @@ userCtr.singin = async (req, res) => {
           resp: "Ok",
           message: "Se inicio Session",
           data: response.rows[0],
+          sidebar: sidebarResponse.rows,
           token: accessToken,
           refreshToken: refreshTokens
         });
       }
     }
+
+    
 
     return res.status(400).json({
       status: false,
@@ -126,9 +152,10 @@ function verifyToken(req, res, next) {
 userCtr.createUser = async(req, res)=>{
 
   try {
-      const{ usuario, password, id_rol } = req.body;
+      const{ nombre , apepat, apemat, codigo , dni,usuario, password, id_rol, idperson } = req.body;
+      const result = await pool.query('insert into persona(nombre, apepat,apemat, dni, codigo ) values($1,$2,$3,$4,$5) returning *', [nombre, apepat,apemat, dni, codigo]);
       const password2 = await helpers.encryptPassword(password);
-      await pool.query('insert into usuario(usuario, password, id_rol) values($1,$2,$3)', [usuario, password2, id_rol]);
+      await pool.query('insert into usuario(usuario, password, id_rol,idperson) values($1,$2,$3,$4)', [usuario, password2, id_rol, result.rows[0].idperson]);
       return res.status(200).json(
           `Usuario ${ usuario } creado correctamente...!`);
   } catch (e) {
