@@ -10,7 +10,7 @@ solicitudctr.getAllsolicitud = async (req, res) => {
       return res.status(200).json({
         status: true,
         resp: "Ok",
-        message: "Se obtuvo las empresas",
+        message: "Se obtuvo las solicitudes",
         data: response.rows 
       });
     } catch (error) {
