@@ -38,7 +38,4 @@ empresactr.getAllempresas = async (req, res) => {
     }
   
   }
-
-
-
   module.exports = empresactr;
