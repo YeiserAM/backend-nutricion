@@ -17,5 +17,7 @@ router.post('/create-users', authCtr.createUser);
 
 router.get('/accesos/:id', authCtr.getAcceso);
 
+router.put('/updateuser/:id', authCtr.updateuser);
+
 
 module.exports =  router;

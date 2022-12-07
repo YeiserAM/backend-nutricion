@@ -164,6 +164,19 @@ userCtr.createUser = async(req, res)=>{
   }
 
 }
+userCtr.updateuser = async(req, res) => {
+  try {
+      const id = parseInt(req.params.id);
+      const { nombre , apepat, apemat, codigo , dni,usuario, password, id_rol, idperson , idpersona } = req.body;
+      await pool.query('update persona set nombre=$1 , apepat=$2 , apemat=$3 , codigo=$4, dni=$5 , usuario=$6, password=$7 , id_rol=$8 from usuario where persona.idpersona = usuario.idperson=$9', [nombre , apepat, apemat, codigo , dni,usuario, password, id_rol, idperson, idpersona , id ]);
+
+      return res.status(200).json(`Usuario ${ id } se ha actualizado correctamente...!`);
+  } catch (e) {
+      console.log(e)
+      return res.status(500).json('Internal Server error...!');
+  }
+}
+
 
 userCtr.getAcceso = async(req, res)=>{
   try{
