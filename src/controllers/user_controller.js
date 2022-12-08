@@ -170,6 +170,22 @@ userCtr.createUser = async(req, res)=>{
   }
 
 }
+userCtr.updateuser = async(req, res) => {
+  try {
+      const id = parseInt(req.params.id);
+      const { nombre , apepat, apemat, codigo , dni,usuario, password, id_rol, idperson , idpersona } = req.body;
+      const password2 = await helpers.encryptPassword(password);
+      const result = await pool.query('update usuario set usuario=$1, password=$2   where id_usuario=$3  returning *', [usuario, password2  ,id]);
+      //console.log(result.rows[0].idperson);
+      const result2 = await pool.query('update persona set nombre=$1 , apepat=$2 , apemat=$3 , codigo=$4, dni=$5  where idpersona=$6 ', [nombre , apepat, apemat, codigo ,dni , result.rows[0].idperson]);
+      //console.log(result2.rows[0]);
+      return res.status(200).json(`Usuario ${ id } se ha actualizado correctamente...!`);
+  } catch (e) {
+      console.log(e)
+      return res.status(500).json('Internal Server error...!');
+  }
+}
+
 
 userCtr.getAcceso = async(req, res)=>{
   try{
