@@ -22,5 +22,16 @@ solicitudctr.getAllsolicitud = async (req, res) => {
     }
   };
 
+//   solicitudctr.readsolicitud = async(req, res) => {
+//     try {
+//         const id = parseInt(req.params.id);
+//         const response = await pool.query('select pa.idpaciente, p.nombres, p.apellidos, p.telefono, p.pais, p.correo, pa.motivoconsulta from paciente pa, persona p, psicologos ps where pa.idpsicologo = $1 and pa.idpersona=p.idpersona and pa.idpsicologo = ps.idpsicologo;', [id]);
+//         return res.status(200).json(response.rows);
+//     } catch (e) {
+//         console.log(e);
+//         return res.status(500).json('Internal Server error...!');
+//     }
+// }
+
 
   module.exports = solicitudctr;
