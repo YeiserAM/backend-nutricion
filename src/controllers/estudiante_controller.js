@@ -46,6 +46,7 @@ estudiantectr.createestudiante = async(req, res)=>{
     try {
         const{ telefono, genero, religion, nacionalidad,fechanacimiento,ubigeo,estadocivil,idperso } = req.body;
         //const password2 = await helpers.encryptPassword(password);
+        console.log(req.body);
         await pool.query('insert into estudiante(telefono, genero, religion, nacionalidad,fechanacimiento,ubigeo,estadocivil,idperso) values($1,$2,$3,$4,$5,$6,$7,$8)', [telefono, genero, religion, nacionalidad,fechanacimiento,ubigeo,estadocivil,idperso]);
         return res.status(200).json(
             ` creado correctamente..!`);

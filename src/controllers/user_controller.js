@@ -54,7 +54,7 @@ userCtr.getAllUsers = async (req, res) => {
 userCtr.getusuario = async (req, res) => {
   try {
     const id = parseInt(req.params.id);
-    const response = await pool.query("select id_usuario,nombre , concat(apepat,' ',apemat) as Apellidos, codigo , dni from usuario u inner join persona p on u.idperson = p.idpersona  where id_usuario = $1");
+    const response = await pool.query("select id_usuario,  nombre , concat(apepat,' ',apemat) as Apellidos, codigo , dni from usuario u inner join persona p on u.idperson = p.idpersona where id_usuario = $1");
 
     return res.status(200).json({
       status: true,
@@ -90,24 +90,30 @@ userCtr.singin = async (req, res) => {
 
       if (await bcrytp.compare(password, password2)) {
 
-        const usuario = {
-          usuario: response.rows[0].username,
-          id_rol: response.rows[0].idrol,
-          idperson : response.rows[0].idperson
-        };
-
-        const accessToken = jwt.sign({ usuario }, secret, {
+        const accessToken = jwt.sign({ id_usuario:response.rows[0].id_usuario, usuario: response.rows[0].username}, secret, {
           expiresIn: "7200s"
         });
+
+        const usuario = {
+          id_usuario: response.rows[0].id_usuario,
+          usuario: response.rows[0].username,
+          id_rol: response.rows[0].idrol,
+          idperson : response.rows[0].idperson,
+          image:  response.rows[0].image,
+          session_token: `JWT ${accessToken}`
+        };
+
+  
 
         const refreshToken = jwt.sign({ usuario }, refreshTokenSecret);
 
         refreshTokens.push(refreshToken);
 
         return res.status(200).json({
+          success: true,
           statusw: true,
           resp: "Ok",
-          message: "Se inicio",
+          message: "Se inicio Session",
           data: response.rows[0],
           sidebar: sidebarResponse.rows,
           token: accessToken,
