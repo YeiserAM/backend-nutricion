@@ -20,5 +20,24 @@ documentoctr.createdocumento = async(req, res)=>{
   
   }
 
+  documentoctr.getAlltipo = async (req, res) => {
+    try {
+      const response = await pool.query("select * from tipodoc");
+  
+      return res.status(200).json({
+        status: true,
+        resp: "Ok",
+        message: "Se obtuvo las tipos",
+        data: response.rows 
+      });
+    } catch (error) {
+      return res.status(400).json({
+        status: true,
+        resp: "Ok",
+        message: error.messages
+      });
+    }
+  };
+
   
   module.exports = documentoctr;
