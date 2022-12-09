@@ -7,8 +7,8 @@ const pool = require('../data_base');
 
 
 router.post('/create-documento', documentoctr.createdocumento);
-//router.get('/empresa', empresactr.getAllempresa);
-//router.get('/', empresactr.getAllempresas);
+router.get('/tipo', documentoctr.getAlltipo);
+router.get('/documento', documentoctr.getAlldoc);
 
 
 module.exports =  router;

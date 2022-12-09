@@ -33,5 +33,17 @@ solicitudctr.getAllsolicitud = async (req, res) => {
 //     }
 // }
 
+solicitudctr.eliminarSolicitud = async(req, res) => {
+  try {
+      const id = parseInt(req.params.id);
+      await pool.query('delete from estudiante where idestudiante=$1', [id]);
+
+      return res.status(200).json(` ${ id } eliminado correctamente...!`);
+  } catch (e) {
+      console.log(e)
+      return res.status(500).json('Internal Server error...!');
+  }
+}
+
 
   module.exports = solicitudctr;

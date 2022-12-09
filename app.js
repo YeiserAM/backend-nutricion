@@ -7,6 +7,7 @@ const estudianteRoutes = require('./src/routes/estudiante_routes')
 const empresaRoutes = require('./src/routes/empresa_routes')
 const solicitudRoutes = require('./src/routes/solicitud_routes')
 const documentoRoutes = require('./src/routes/documento_routes')
+const reporteRoutes = require('./src/routes/reporte_routes')
 
 
 require("dotenv").config();
@@ -29,6 +30,7 @@ app.use('/api/estudiante', estudianteRoutes);
 app.use('/api/empresa', empresaRoutes);
 app.use('/api/solicitud', solicitudRoutes);
 app.use('/api/documento', documentoRoutes);
+app.use('/api/reporte', reporteRoutes);
 
 const port =process.env.PORT || 3000;
 app.set('port', port);
