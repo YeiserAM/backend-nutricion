@@ -39,5 +39,24 @@ documentoctr.createdocumento = async(req, res)=>{
     }
   };
 
+  documentoctr.getAlldoc = async (req, res) => {
+    try {
+      const response = await pool.query("select * from documento");
+  
+      return res.status(200).json({
+        status: true,
+        resp: "Ok",
+        message: "Se obtuvo los documentos",
+        data: response.rows 
+      });
+    } catch (error) {
+      return res.status(400).json({
+        status: true,
+        resp: "Ok",
+        message: error.messages
+      });
+    }
+  };
+
   
   module.exports = documentoctr;
