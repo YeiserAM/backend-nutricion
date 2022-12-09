@@ -6,11 +6,11 @@ const documentoctr = {};
 documentoctr.createdocumento = async(req, res)=>{
 
     try {
-        const{ url, idestud } = req.body;
+        const{ url, idestud ,idtipo} = req.body;
 
         //console.log(req.body)
         //const password2 = await helpers.encryptPassword(password);
-        await pool.query('insert into documento( url, idestud ) values($1,$2)', [url, idestud ]);
+        await pool.query('insert into documento( url, idestud , idtipo ) values($1,$2,$3)', [url, idestud , idtipo]);
         return res.status(200).json(
             ` documento creado correctamente...!`);
     } catch (e) {
