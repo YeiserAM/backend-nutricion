@@ -8,9 +8,9 @@ const reportectr = {};
 reportectr.createreporte= async(req, res)=>{
 
     try {
-        const{ titulo, tipo, descripcion,idestudi,idrol,iddoc} = req.body;
+        const{ titulo, tipo, descripcion,idestudi,idrol,iddoc,idtipo} = req.body;
         //const password2 = await helpers.encryptPassword(password);
-        await pool.query('insert into reporte(titulo, tipo, descripcion,idestudi,idrol,iddoc) values($1,$2,$3,$4,$5,$6)', [titulo, tipo, descripcion,idestudi,idrol,iddoc]);
+        await pool.query('insert into reporte(titulo, tipo, descripcion,idestudi,idrol,iddoc,idtipo) values($1,$2,$3,$4,$5,$6,2)', [titulo, tipo, descripcion,idestudi,idrol,iddoc,idtipo]);
         return res.status(200).json(
             ` creado correctamente..!`);
     } catch (e) {
