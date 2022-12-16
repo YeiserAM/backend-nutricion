@@ -172,6 +172,7 @@ userCtr.createUser = async(req, res)=>{
   }
 
 }
+
 userCtr.updateuser = async(req, res) => {
   try {
       const id = parseInt(req.params.id);
