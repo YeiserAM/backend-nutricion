@@ -3,6 +3,28 @@ const pool = require("../data_base");
 
 const solicitudctr = {};
 
+
+solicitudctr.createSolicitud = async (req, res) => {
+  try {
+    const { nombreemp, nombreapeliidorep, cargorep, gradorep, direccionemp, telefonoemp, fechappp, areappp, estado_civil, religion, fechanacimiento, ubigeo, id_usuario } = req.body;
+    
+    const insetSolicitud = await pool.query('insert into solicitud(nombreemp, nombreapeliidorep, cargorep, gradorep, direccionemp, telefonoemp, fechappp, areappp, estado_civil, religion, fechanacimiento, ubigeo, id_usuario) values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) returning *', [nombreemp, nombreapeliidorep, cargorep, gradorep, direccionemp, telefonoemp, fechappp, areappp, estado_civil, religion, fechanacimiento, ubigeo, id_usuario]);
+
+    return res.status(200).json({
+      status: true,
+      resp: 'Ok',
+      messages: 'Se creo la solicitud exitosamente',
+      data: insetSolicitud.rows[0]
+    });
+  } catch (error) {
+    return res.status(400).json({
+      status: false,
+      resp: 'Oh no',
+      message: error.message
+    })
+  }
+}
+
 // solicitudctr.getAllsolicitud = async (req, res) => {
 //     try {
       

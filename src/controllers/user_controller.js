@@ -81,7 +81,7 @@ userCtr.singin = async (req, res) => {
       "select u.id_usuario ,u.usuario,u.password ,r.id_rol ,r.nombrer , p.id_persona ,nombre , concat(apepat,' ',apemat) as Apellidos, edad , dni, nacionalidad , e.id_estudiante , e.codigo,e.correo from usuario u inner join rol r on r.id_rol = u.id_rol inner join estudiante e on e.id_estudiante = u.id_estudiante inner join persona p on e.id_persona = p.id_persona  where id_usuario = $1",
       [user.rows[0].id_usuario] 
     );
-    console.log(response.rows)
+    
     const sidebarResponse = await pool.query("select * from sidebar where id_rol = $1", [response.rows[0].id_rol]);
 
     if (response.rows.length != 0) {
@@ -110,8 +110,7 @@ userCtr.singin = async (req, res) => {
         refreshTokens.push(refreshToken);
 
         return res.status(200).json({
-          success: true,
-          statusw: true,
+          status: true,
           resp: "Ok",
           message: "Se inicio Session",
           data: response.rows[0],
@@ -121,8 +120,6 @@ userCtr.singin = async (req, res) => {
         });
       }
     }
-
-    
 
     return res.status(400).json({
       status: false,
@@ -158,14 +155,19 @@ function verifyToken(req, res, next) {
 userCtr.createUser = async(req, res)=>{
 
   try {
-      const{ nombre , apepat, apemat, codigo , dni,usuario, password, id_rol, idperson } = req.body;
-      const result = await pool.query('insert into persona(nombre, apepat,apemat, dni, codigo ) values($1,$2,$3,$4,$5) returning *', [nombre, apepat,apemat, dni, codigo]);
+      const{ nombre , apepat, apemat, edad , dni, telefono, nacionalidad, correo, codigo, id_rol, usuario, password } = req.body;
+      
+      const insertPeople = await pool.query('insert into persona(nombre, apepat, apemat, edad, dni, telefono, nacionalidad) values($1,$2,$3,$4,$5,$6,$7) returning *', [nombre, apepat,apemat, edad, dni, telefono, nacionalidad]);
+      
+      const insertStudent = await pool.query('insert into estudiante(codigo, correo, id_persona) values($1,$2,$3) returning *', [codigo, correo, insertPeople.rows[0].id_persona]);
+      
       const password2 = await helpers.encryptPassword(password);
-      await pool.query('insert into usuario(usuario, password, id_rol,idperson) values($1,$2,$3,$4)', [usuario, password2, id_rol, result.rows[0].idperson]);
+      
+      const insertUser = await pool.query('insert into usuario(usuario, password, id_rol, id_estudiante) values($1,$2,$3,$4) returning *', [usuario, password2, id_rol, insertStudent.rows[0].id_estudiante]);
+
       return res.status(200).json(
-          `Usuario ${ usuario } creado correctamente...!`);
+          `Usuario ${ insertUser.rows[0].usuario } creado correctamente...!`);
   } catch (e) {
-      console.log(e);
       return res.status(500).json(' error...!');
   }
 

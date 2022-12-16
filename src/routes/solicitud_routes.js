@@ -9,6 +9,7 @@ const pool = require('../data_base');
 //router.get('/solicitudes', solicitudctr.getAllsolicitud);
 router.delete('/delete/:id', solicitudctr.eliminarSolicitud);
 router.get('/solicitudes/:id', solicitudctr.getAllsolicitudid);
+router.post('/create-solicitud', solicitudctr.createSolicitud);
 
 
 module.exports =  router;
