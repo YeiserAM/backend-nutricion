@@ -76,8 +76,9 @@ userCtr.singin = async (req, res) => {
     const { usuario, password } = req.body;
     
     const user = await pool.query("select * from usuario where usuario = $1 ", [usuario]);
-    
-    const response = await pool.query("select u.id_usuario ,u.usuario,u.password ,r.id_rol ,r.nombrer , p.id_persona ,nombre , concat(apepat,' ',apemat) as Apellidos, edad , dni, nacionalidad , e.id_estudiante , e.codigo,e.correo from usuario u inner join rol r on r.id_rol = u.id_rol inner join estudiante e on e.id_estudiante = u.id_estudiante inner join persona p   on e.id_persona = p.id_persona  where id_usuario = $1",
+
+    const response = await pool.query(
+      "select u.id_usuario ,u.usuario,u.password ,r.id_rol ,r.nombrer , p.id_persona ,nombre , concat(apepat,' ',apemat) as Apellidos, edad , dni, nacionalidad , e.id_estudiante , e.codigo,e.correo from usuario u inner join rol r on r.id_rol = u.id_rol inner join estudiante e on e.id_estudiante = u.id_estudiante inner join persona p on e.id_persona = p.id_persona  where id_usuario = $1",
       [user.rows[0].id_usuario] 
     );
     
@@ -171,6 +172,7 @@ userCtr.createUser = async(req, res)=>{
   }
 
 }
+
 userCtr.updateuser = async(req, res) => {
   try {
       const id = parseInt(req.params.id);
