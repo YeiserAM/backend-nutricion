@@ -5,7 +5,7 @@ const router = express.Router();
 const pool = require('../data_base');
 
 
-router.post('/correo', correoctr.enviocorreo);
+router.post('/enviar', correoctr.enviocorreo);
 
 
 module.exports =  router;
