@@ -78,7 +78,7 @@ userCtr.singin = async (req, res) => {
     const user = await pool.query("select * from usuario where usuario = $1 ", [usuario]);
 
     const response = await pool.query(
-      "select u.id_usuario ,u.usuario,u.password ,r.id_rol ,r.rol, p.idpersona ,nombre , concat(apepat,' ',apemat) as Apellidos, codigo , dni, e.idestudiante, e.telefono,e.genero, e.religion ,e.nacionalidad ,e.fechanacimiento ,e.ubigeo ,e.estadocivil from usuario u inner join persona p on u.idperson = p.idpersona inner join rol r on r.id_rol = u.id_rol inner join estudiante e on e.idperso = p.idpersona where id_usuario = $1",
+      "select u.id_usuario ,u.usuario,u.password ,r.id_rol ,r.nombrer , p.id_persona ,nombre , concat(apepat,' ',apemat) as Apellidos, edad , dni, nacionalidad , e.id_estudiante , e.codigo,e.correo from usuario u inner join rol r on r.id_rol = u.id_rol inner join estudiante e on e.id_estudiante = u.id_estudiante inner join persona p on e.id_persona = p.id_persona  where id_usuario = $1",
       [user.rows[0].id_usuario] 
     );
     console.log(response.rows)
