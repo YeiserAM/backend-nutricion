@@ -30,13 +30,11 @@ solicitudctr.getAllsolicitudpendiente = async (req, res) => {
       
       const response = await pool.query("select * from solicitud where id_estadosolicitud = 4 ");
 
-
       return res.status(200).json({
         status: true,
         resp: "Ok",
         message: "Se obtuvo las solicitudes",
         data: response.rows,
-        documents: responseDocumeto.rows
       });
     } catch (error) {
       return res.status(400).json({
