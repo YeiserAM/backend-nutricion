@@ -28,7 +28,7 @@ solicitudctr.createSolicitud = async (req, res) => {
 solicitudctr.getAllsolicitudpendiente = async (req, res) => {
     try {
       
-      const response = await pool.query("select * from solicitud where id_estadosolicitud = 4 ");
+      const response = await pool.query("select * from solicitud s inner join usuario u on u.id_usuario = s.id_usuario inner join estudiante e on e.id_estudiante = u.id_estudiante inner join persona p on p.id_persona = e.id_persona where id_estadosolicitud = 4");
 
       return res.status(200).json({
         status: true,
