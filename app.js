@@ -9,6 +9,7 @@ const solicitudRoutes = require('./src/routes/solicitud_routes')
 const documentoRoutes = require('./src/routes/documento_routes')
 const reporteRoutes = require('./src/routes/reporte_routes')
 const rolRoutes = require('./src/routes/rol_routes')
+const correoRoutes = require('./src/routes/correo_routes')
 
 
 require("dotenv").config();
@@ -33,6 +34,7 @@ app.use('/api/solicitud', solicitudRoutes);
 app.use('/api/documento', documentoRoutes);
 app.use('/api/reporte', reporteRoutes);
 app.use('/api/rol', rolRoutes);
+app.use('/api/correo', correoRoutes);
 
 const port =process.env.PORT || 3000;
 app.set('port', port);
