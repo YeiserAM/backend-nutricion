@@ -1,12 +1,11 @@
-// const express = require('express');
-// const documentoctr = require('../controllers/documento_controller');
-// const router = express.Router();
+const express = require('express');
+const correoctr = require('../controllers/correo_controller');
+const router = express.Router();
 
-// const pool = require('../data_base');
-
-
-// router.post('/correo', correoctr.enviocorreo);
-// //router.get('/roles', rolctr.getAllrol);
+const pool = require('../data_base');
 
 
-// module.exports =  router;
+router.post('/correo', correoctr.enviocorreo);
+
+
+module.exports =  router;

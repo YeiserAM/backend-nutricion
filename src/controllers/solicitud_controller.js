@@ -51,7 +51,7 @@ solicitudctr.getAllsolicitudpendiente = async (req, res) => {
     try {
       const id = parseInt(req.params.id);
       const response = await pool.query(" select * from solicitud where id_usuario = $1 ", [id]);
-      const responseDocumeto = await pool.query("select * from documento");
+      // const responseDocumeto = await pool.query("select * from documento");
 
       return res.status(200).json({
         status: true,
