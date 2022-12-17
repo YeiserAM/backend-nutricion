@@ -5,33 +5,33 @@ const reportectr = {};
 reportectr.getReportMensual = async (req, res) => {
   try {
     const responseReport = await pool.query("select * from solicitud");
-
-    const responseReportPendiente = await pool.query(
-      "select * from solicitud where id_estadosolicitud = $1",
-      [4]
-    );
-
-    const responseReportRechazado = await pool.query(
-      "select * from solicitud where id_estadosolicitud = $1",
-      [2]
-    );
-
-    const responseReportObservado = await pool.query(
-      "select * from solicitud where id_estadosolicitud = $1",
-      [3]
-    );
-
+    
     const responseReportAceptado = await pool.query(
       "select * from solicitud where id_estadosolicitud = $1",
       [1]
     );
+    
+    const responseReportPendiente = await pool.query(
+      "select * from solicitud where id_estadosolicitud = $1",
+      [4]
+    );
+    
+    const responseReportObservado = await pool.query(
+      "select * from solicitud where id_estadosolicitud = $1",
+      [3]
+      );
+      
+      const responseReportRechazado = await pool.query(
+        "select * from solicitud where id_estadosolicitud = $1",
+        [2]
+      );
 
     const reports = {
       solicitudesTotals: responseReport.rows.length,
       solicitudesPendientes: responseReportPendiente.rows.length,
-      solicitudesRechazado: responseReportRechazado.rows.length,
+      solicitudesAceptado: responseReportAceptado.rows.length,
       solicitudesObservado: responseReportObservado.rows.length,
-      solicitudesAceptado: responseReportAceptado.rows.length
+      solicitudesRechazado: responseReportRechazado.rows.length,
     };
 
     return res.status(200).json({
