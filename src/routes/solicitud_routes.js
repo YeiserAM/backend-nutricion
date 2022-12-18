@@ -11,6 +11,7 @@ router.get('/estado/:id', solicitudctr.getestado);
 router.delete('/delete/:id', solicitudctr.eliminarSolicitud);
 router.get('/solicitudes/:id', solicitudctr.getAllsolicitudid);
 router.post('/create-solicitud', solicitudctr.createSolicitud);
+router.put('/update/:id', solicitudctr.updatesolicitud);
 
 
 module.exports =  router;
