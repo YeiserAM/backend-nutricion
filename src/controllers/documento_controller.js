@@ -6,13 +6,16 @@ const documentoctr = {};
 documentoctr.createdocumento = async(req, res)=>{
 
     try {
-        const{ url, idestud ,idtipo} = req.body;
+        const{ url, id_solicitud } = req.body;
+        
+        const insertDocument = await pool.query('insert into documento( url, id_solicitud ) values($1,$2) returning *', [url, id_solicitud]);
 
-        //console.log(req.body)
-        //const password2 = await helpers.encryptPassword(password);
-        await pool.query('insert into documento( url, idestud , idtipo ) values($1,$2,$3)', [url, idestud , idtipo]);
-        return res.status(200).json(
-            ` documento creado correctamente...!`);
+        return res.status(200).json({
+          stauts: true,
+          resp: 'Ok',
+          messages: 'Se genero el documento exitosamente',
+          data: insertDocument.rows[0]
+        });
     } catch (e) {
         console.log(e);
         return res.status(500).json(' error...!');
