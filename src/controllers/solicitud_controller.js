@@ -81,5 +81,29 @@ solicitudctr.eliminarSolicitud = async(req, res) => {
   }
 }
 
+solicitudctr.getestado = async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    const response = await pool.query(" select * from solicitud s inner join estadosolicitud e on s.id_estadosolicitud = e.id_estadosolicitud where e.id_estadosolicitud = $1 ", [id]);
+
+
+    return res.status(200).json({
+      status: true,
+      resp: "Ok",
+      message: "Se obtuvo las solicitudes",
+      data: response.rows,
+      documents: responseDocumeto.rows
+    });
+  } catch (error) {
+    return res.status(400).json({
+      status: true,
+      resp: "Ok",
+      message: error.messages
+    });
+  }
+};
+
+
+
 
   module.exports = solicitudctr;
