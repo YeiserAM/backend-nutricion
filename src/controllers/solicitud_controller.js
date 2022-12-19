@@ -68,6 +68,28 @@ solicitudctr.getAllsolicitudpendiente = async (req, res) => {
     }
   };
 
+  solicitudctr.getsolicituddoc = async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const response = await pool.query(" select * from solicitud s inner join documento d on d.id_solicitud = s.id_solicitud  where s.id_solicitud  = $1 ", [id]);
+      // const responseDocumeto = await pool.query("select * from documento");
+
+      return res.status(200).json({
+        status: true,
+        resp: "Ok",
+        message: "Se obtuvo las solicitudes",
+        data: response.rows,
+        documents: responseDocumeto.rows
+      });
+    } catch (error) {
+      return res.status(400).json({
+        status: true,
+        resp: "Ok",
+        message: error.messages
+      });
+    }
+  };
+
 
 solicitudctr.eliminarSolicitud = async(req, res) => {
   try {

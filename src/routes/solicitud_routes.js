@@ -5,8 +5,9 @@ const pool = require('../data_base');
 
 
 
-//router.post('/create-solicitud', solicitudctr.createsolicitud);
-router.get('/solicitudes', solicitudctr.getAllsolicitudpendiente);
+
+router.get('/solicitudpendiente', solicitudctr.getAllsolicitudpendiente);
+router.get('/solicituddoc/:id', solicitudctr.getsolicituddoc)
 router.get('/estado/:id', solicitudctr.getestado);
 router.delete('/delete/:id', solicitudctr.eliminarSolicitud);
 router.get('/solicitudes/:id', solicitudctr.getAllsolicitudid);
