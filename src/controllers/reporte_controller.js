@@ -167,63 +167,16 @@ reportectr.allsolicitudes = async (req, res) => {
 			}
 		}
 
-		let jsonReportsMensuales = [
-			{
-				name: "Enero",
-				amount: enero.length
-			},
-			{
-				name: "Febrero",
-				amount: febrero.length
-			},
-			{
-				name: "Marzo",
-				amount: marzo.length
-			},
-			{
-				name: "Abril",
-				amount: abril.length
-			},
-			{
-				name: "Mayo",
-				amount: mayo.length
-			},
-			{
-				name: "Junio",
-				amount: junio.length
-			},
-			{
-				name: "Julio",
-				amount: julio.length
-			},
-			{
-				name: "Agosto",
-				amount: agosto.length
-			},
-			{
-				name: "Septiembre",
-				amount: septiembre.length
-			},
-			{
-				name: "Octubre",
-				amount: octubre.length
-			},
-			{
-				name: "Noviembre",
-				amount: noviembre.length
-			},
-			{
-				name: "Diciembre",
-				amount: diciembre.length
-			},
-		]
+		let jsonNameMes = [ "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" ];
+
+		let jsonAmount = [ enero.length, febrero.length, marzo.length, abril.length, mayo.length, junio.length, julio.length, agosto.length, septiembre.length, octubre.length, noviembre.length, diciembre.length ];
 		
 		return res.status(200).json({
 			status: true,
 			resp: "Ok",
 			message: "Se obtuvo las solicitudes",
-			data: jsonReportsMensuales,
-			//documents: responseDocumeto.rows
+			dataMes: jsonNameMes,
+			dataAmount: jsonAmount
 		});
 	} catch (error) {
 		return res.status(400).json({
