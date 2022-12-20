@@ -9,13 +9,15 @@ solicitudctr.createSolicitud = async (req, res) => {
     // formato de frecha de registro       "15-06-2022"
     const { nombreemp, nombreapeliidorep, cargorep, gradorep, direccionemp, telefonoemp, fechappp, areappp, estado_civil, religion, fechanacimiento, ubigeo, fecharegistro,id_usuario } = req.body;
     
-    const insetSolicitud = await pool.query('insert into solicitud(nombreemp, nombreapeliidorep, cargorep, gradorep, direccionemp, telefonoemp, fechappp, areappp, estado_civil, religion, fechanacimiento, ubigeo, fecharegistro, id_usuario , id_estadosolicitud) values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15) returning *', [nombreemp, nombreapeliidorep, cargorep, gradorep, direccionemp, telefonoemp, fechappp, areappp, estado_civil, religion, fechanacimiento, ubigeo,fecharegistro, id_usuario,4]);
+    const fecha = new Date()
+      //console.log(fecha.toLocaleDateString())
+   const insetSolicitud = await pool.query('insert into solicitud(nombreemp, nombreapeliidorep, cargorep, gradorep, direccionemp, telefonoemp, fechappp, areappp, estado_civil, religion, fechanacimiento, ubigeo, fecharegistro, id_usuario , id_estadosolicitud) values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15) returning *', [nombreemp, nombreapeliidorep, cargorep, gradorep, direccionemp, telefonoemp, fechappp, areappp, estado_civil, religion, fechanacimiento, ubigeo,fecha.toLocaleDateString(), id_usuario,4]);
 
     return res.status(200).json({
       status: true,
       resp: 'Ok',
       messages: 'Se creo la solicitud exitosamente',
-      data: insetSolicitud.rows[0]
+     data: insetSolicitud.rows[0]
     });
   } catch (error) {
     return res.status(400).json({
