@@ -1,10 +1,10 @@
 const Pool = require('pg').Pool
 
 const pool = new Pool({
-    host: 'bxjfyeaysrvjslyk5kqm-postgresql.services.clever-cloud.com',
-    user: 'uxfvq8owbmmevzo3ak0d',
-    password: 'DC5ywzTH6Bm63rlYoAXv',
-    database: 'bxjfyeaysrvjslyk5kqm',
+    host: 'localhost',
+    user: 'postgres',
+    password: 'root',
+    database: 'bdnutricion',
     port: 5432,
     ssl: { rejectUnauthorized: false }
 });
