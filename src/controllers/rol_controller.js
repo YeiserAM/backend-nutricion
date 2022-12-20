@@ -26,7 +26,7 @@ rolctr.getAllroles = async (req, res) => {
 
   rolctr.getestudiantes= async (req, res) => {
     try {
-      const response = await pool.query("select p.nombre , p.apepat ,p.apemat from usuario u inner join estudiante e on u.id_estudiante = e.id_estudiante inner join persona p on p.id_persona = e.id_persona where u.id_rol = 2");
+      const response = await pool.query("select p.nombre , p.apepat ,p.apemat , u.id_usuario from usuario u inner join estudiante e on u.id_estudiante = e.id_estudiante inner join persona p on p.id_persona = e.id_persona where u.id_rol = 2");
   
       return res.status(200).json({
         status: true,
