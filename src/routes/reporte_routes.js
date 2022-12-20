@@ -8,6 +8,7 @@ const pool = require('../data_base');
 router.post('/create-reporte', reportectr.createreporte);
 router.get('/reportes', reportectr.getAllreporte);
 router.get('/reports-all', reportectr.getReportMensual);
+router.get('/reports-mensuales', reportectr.allsolicitudes);
 
 
 
