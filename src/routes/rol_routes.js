@@ -7,6 +7,7 @@ const pool = require('../data_base');
 
 //router.post('/create-rol', rolctr.createrol);
 router.get('/roles', rolctr.getAllroles);
+router.get('/estudiantes', rolctr.getestudiantes);
 
 
 module.exports =  router;
