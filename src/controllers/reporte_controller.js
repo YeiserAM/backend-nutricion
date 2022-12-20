@@ -91,4 +91,21 @@ reportectr.getAllreporte = async (req, res) => {
 // 	}
 // };
 
+reportectr.createreporte = async(req, res)=>{
+
+    try {
+        const{ titulo, tipo, descripcion , id_documentorep , url} = req.body;
+		const insertdoc = await pool.query('insert into documentorep(url) values($1) returning *', [url]);
+        //const password2 = await helpers.encryptPassword(password);
+        await pool.query('insert into reporte(titulo, tipo, descripcion , id_documentorep  ) values($1,$2,$3,$4)', [titulo, tipo, descripcion , insertdoc.rows[0].id_documentorep]);
+        return res.status(200).json(
+            ` creado correctamente...!`);
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json(' error...!');
+    }
+  
+  }
+
+  
 module.exports = reportectr;
